@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using SpecflowParallelTest.Pages;
 using System;
 using TechTalk.SpecFlow;
@@ -11,6 +12,8 @@ namespace SpecflowParallelTest
     {
         private IWebDriver _driver;
         ProjectPage page;
+        int collectedSumm;
+        dynamic data;
 
         public InvestMoneySteps(IWebDriver driver)
         {
@@ -27,13 +30,14 @@ namespace SpecflowParallelTest
         [Given(@"I click invest custom amount button")]
         public void GivenIClickInvestCustom()
         {
+            collectedSumm = page.GetCollectedSumm();
             page.ClickInvestCustomButton();
         }
 
         [Given(@"I enter cardholder name card number and summ")]
         public void GivenIEnterUsernameAndPassword(Table table)
         {
-            dynamic data = table.CreateDynamicInstance();
+            data = table.CreateDynamicInstance();
             page.InvestCustom(data.CardHolderName, data.CardNum.ToString(), data.Summ.ToString());
         }
 
@@ -41,6 +45,15 @@ namespace SpecflowParallelTest
         public void GivenIClickSubmit()
         {
             page.ClickSubmitButton();
+        }
+
+        [Then(@"I should see money added into Collected column")]
+        public void ThenIShouldSeeUserLoggedInToTheApplication()
+        {
+            page.ClickBackButton();
+            _driver.Navigate().Refresh();
+            int collected = page.GetCollectedSumm();
+            Assert.AreEqual((collectedSumm + data.Summ), collected);
         }
 
     }

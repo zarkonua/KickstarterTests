@@ -64,11 +64,11 @@ namespace KickstarterTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Invest as a unregistred user")]
+        [NUnit.Framework.DescriptionAttribute("Invest money as a unregistred user")]
         [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void InvestAsAUnregistredUser()
+        public virtual void InvestMoneyAsAUnregistredUser()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Invest as a unregistred user", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Invest money as a unregistred user", new string[] {
                         "mytag"});
 #line 6
 this.ScenarioSetup(scenarioInfo);
@@ -89,6 +89,8 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("I enter cardholder name card number and summ", ((string)(null)), table1, "And ");
 #line 12
  testRunner.And("I click submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.Then("I should see money added into Collected column", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
